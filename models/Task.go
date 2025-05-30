@@ -2,6 +2,7 @@ package models
 
 import (
 	"database/sql"
+	"fmt"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -41,18 +42,27 @@ func (t *Task) ListTasks() error {
 	}
 	defer db.Close()
 
-	stmt, err := db.Prepare("SELECT * FROM Task")
+	results, err := db.Query("SELECT * FROM Task")
 	if err != nil {
 		return err
 	}
-	defer stmt.Close()
+	defer results.Close()
 
-	results, err := stmt.Exec()
-	if err != nil {
+	fmt.Printf("%s\t\t%s\t\t%s\t\t%s\t\t%s", "ID", "TITLE", "DESCRIPTION", "DUEDATE", "STATUS")
+	for results.Next() {
+		var id int
+		var title, description, duedate, status string
+
+		err := results.Scan(&id, &title, &description, &duedate, &status)
+		if err != nil {
+			return err
+		}
+		fmt.Printf("%d\t\t%s\t\t%s\t\t%s\t\t%s\n", id, title, description, duedate, status)
+	}
+
+	if err = results.Err(); err != nil {
 		return err
 	}
-	
-	for r := range results {
 
-	}
+	return nil
 }

@@ -3,9 +3,12 @@ package main
 /*
 FUNZIONI PRINCIPALI DELL'APPLICAZIONE DA TERMINALE:
 1. Aggiungere nuovo task (add)
-2. Dare titolo al task (--title -t)
-3. Dare descrizione al task (--description -d)
-4. Definire data completamento task (--due-date)
+	1. Dare titolo al task (--title -t)
+	2. Dare descrizione al task (--description -d)
+	3. Definire data completamento task (--due-date)
+2. Modificare informazioni sul task (edit)
+
+3. Listare tutti i task
 
 Appena creato il task avrà lo stato "pending"
 
